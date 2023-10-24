@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>sparkproject-failureaccess_2.12</artifactId>
+    <version>3.5.0</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <!-- Package to use when relocating shaded classes. -->
+        <spark.shade.packageName>org.sparkproject</spark.shade.packageName>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/failureaccess -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>failureaccess</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <configuration>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
+                    <artifactSet>
+                        <includes>
+                            <include>org.spark-project.spark:unused</include>
+                            <include>com.google.guava:*</include>
+                            <include>org.jpmml:*</include>
+                        </includes>
+                    </artifactSet>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.eclipse.jetty</pattern>
+                            <shadedPattern>${spark.shade.packageName}.jetty</shadedPattern>
+                            <includes>
+                                <include>org.eclipse.jetty.**</include>
+                            </includes>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google.common</pattern>
+                            <shadedPattern>${spark.shade.packageName}.guava</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.dmg.pmml</pattern>
+                            <shadedPattern>${spark.shade.packageName}.dmg.pmml</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.jpmml</pattern>
+                            <shadedPattern>${spark.shade.packageName}.jpmml</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
