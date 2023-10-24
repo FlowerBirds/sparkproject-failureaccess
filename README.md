@@ -70,3 +70,8 @@ Caused by: java.lang.ClassNotFoundException: org.sparkproject.guava.util.concurr
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
 	... 56 more
 ```
+
+# Build
+```bash
+mvn package
+```
