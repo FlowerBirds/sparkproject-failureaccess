@@ -1,6 +1,9 @@
 # Sparkproject Failureaccess
 guava failureaccess for spark project
-
+- Spark 3.5.0
+- Scala 2.12
+- OpenJDK8
+- CentOS 7.6 with wsl2
 ```
 23/10/24 12:00:42 ERROR Inbox: An error happened while processing message in the inbox for Executor
 java.lang.NoClassDefFoundError: org/sparkproject/guava/util/concurrent/internal/InternalFutureFailureAccess
